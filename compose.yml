@@ -1,0 +1,110 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    image: ghost-app:local
+    ports:
+      - "2368:2368"
+    environment:
+      NODE_ENV: production
+      RAILS_ENV: production
+      GHOST_BUILD_VERSION: ""
+      server__host: 0.0.0.0
+      server__port: "2368"
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__port: 3306
+      database__connection__user: ghost
+      database__connection__password: ghost
+      database__connection__database: ghost_dev
+      url: http://localhost:2368
+      mail__transport: SMTP
+      mail__options__host: mailpit
+      mail__options__port: 1025
+      cache__type: redis
+      cache__options__host: redis
+      cache__options__port: 6379
+      storage__active: local-file
+      analytics__url: http://analytics:3000
+      tinybird__url: http://tinybird-local:7181
+      tinybird__host: tinybird-local
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+      minio:
+        condition: service_started
+      tinybird-local:
+        condition: service_started
+      analytics:
+        condition: service_started
+    stdin_open: true
+    tty: true
+
+  mysql:
+    image: mysql:8.4.5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ghost_dev
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ghost
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  redis:
+    image: redis:7.0
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  minio:
+    image: minio/minio:RELEASE.2024-12-13T22-19-12Z
+    environment:
+      MINIO_ROOT_USER: minio-user
+      MINIO_ROOT_PASSWORD: minio-pass
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+
+  tinybird-local:
+    image: tinybirdco/tinybird-local
+    ports:
+      - "7181:7181"
+
+  analytics:
+    image: ghost/traffic-analytics:1.0.175
+    ports:
+      - "3000:3000"
+
+volumes:
+  mysql-data:
+  redis-data:
+  minio-data:
