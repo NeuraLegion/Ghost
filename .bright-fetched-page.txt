@@ -1,0 +1,531 @@
+How To Install Ghost With Docker (preview) - Ghost Developer Docs
+Skip to main content
+Ghost Developer Docs home page
+
+Search...
+
+⌘K
+Sign in
+Get Started
+Get Started
+
+Search...
+
+Navigation
+How To Install Ghost With Docker (preview)
+
+Home
+Documentation
+Migration Guides
+
+Tutorials
+
+Developer Forum
+Getting Started
+
+Introduction
+
+Installation
+
+Hosting Guide
+
+Updates & Versions
+
+Core Concepts
+
+Overview
+
+Architecture
+
+Configuration
+
+Staff Users
+
+Publishing
+
+Memberships
+
+Recommendations
+
+Newsletters
+
+Security
+
+Themes
+
+Overview
+
+Structure
+
+Contexts
+
+Assets
+
+Helpers
+
+Content
+
+Search
+
+Share
+
+Members
+
+Routing
+
+Custom Settings
+
+GScan
+
+Advanced Tools
+
+Ghost CLI
+
+Content API
+
+Admin API
+
+JAMstack
+
+Webhooks
+
+Resources
+
+FAQ
+
+Breaking Changes
+
+Contributing
+
+LLM
+
+License
+
+Logos
+
+Trademark
+
+On this pageOverview
+Why Docker?
+What’s included?
+Install Ghost
+Prerequisites
+Clone the repo
+Setup your config
+(Optional) Domain setup in Caddy
+Install and run Ghost
+Enabling Web Analytics
+Get Tinybird setup
+Edit the .env file
+Install and run Ghost with Web Analytics
+Enabling Social Web (ActivityPub)
+Edit the .env file
+Install and run Ghost with ActivityPub
+Hosted ActivityPub Usage Limits
+Future maintenance
+Updating Ghost
+Updating config
+Migrating a Ghost-CLI Install
+Prerequisites
+Get started
+Run the migration assistant
+Enable additional services
+Troubleshooting Docker
+Tinybird Integration
+Configuration
+Deployments (”Migrations”)
+How it works
+What is a deployment?
+What if a deployment fails?
+
+How To Install Ghost With Docker (preview)
+
+Preview our new batteries-included tools for self-hosting Ghost using Docker Compose.
+
+Documentation Index
+Fetch the complete documentation index at: https://docs.ghost.org/llms.txt
+Use this file to discover all available pages before exploring further.
+
+​
+
+Overview
+
+With the launch of Ghost 6.0 we are also previewing a new suite of tooling for self-hosters built on Docker with Compose. We invite you to be one of the first to try hosting Ghost with this new tooling, which comes with full support for self-hosting both the Social Web (ActivityPub) and Web Analytics (Tinybird) features.
+​
+
+Why Docker?
+
+So that we can continue adding advanced features to Ghost without creating bloat, we’re starting to build some features as separate services. Using Docker and Docker Compose takes all the pain out of managing different services and their dependencies, meaning we can keep Ghost’s architecture simple without passing on complexity to our self-hosting community. All services are Open Source and can be self-hosted.
+​
+
+What’s included?
+
+The Docker tooling will setup and run the usual Ghost service, along with Caddy for a webserver, MySQL, and if enabled, all the services needed for running ActivityPub and/or Analytics.
+There are two pathways:
+
+A new install
+
+Migrating an existing Ghost-CLI site
+
+---
+
+​
+
+Install Ghost
+
+This section will get you a fresh setup of a working Ghost instance.
+It will install the Ghost service, Caddy as a webserver and MySQL for the database.
+​
+
+Prerequisites
+
+A Linux-based server (E.g. DigitalOcean 2GB/1CPU droplet)
+
+Docker 20.10.13 or higher installed (See: docker install guide)
+
+A domain name with a DNS A-Record pointing to the server’s IP address
+
+An SMTP email service for transactional mail (See: email config docs)
+
+(Optional) A Tinybird account for web analytics
+
+​
+
+Clone the repo
+
+Make a local copy of our docker tooling repository in /opt/ghost:
+
+git clone https://github.com/TryGhost/ghost-docker.git /opt/ghost && cd /opt/ghost
+
+​
+
+Setup your config
+
+Copy the example config files for Ghost and Caddy:
+
+cp .env.example .env
+cp caddy/Caddyfile.example caddy/Caddyfile
+
+Edit the .env file and change:
+
+DOMAIN : this is your custom domain for your Ghost site e.g. mysite.com
+
+ADMIN_DOMAIN : (Optional) a separate domain for your Ghost admin e.g. admin.mysite.com
+
+DATABASE_ROOT_PASSWORD : generate a random password with openssl rand -hex 32
+
+DATABASE_PASSWORD : generate a random password using openssl rand -hex 32
+
+SMTP Email section : your chosen SMTP service’s configuration (See: email config docs)
+
+If you’re using www in DOMAIN, you’ll need to do option 3 in the next section to ensure ActivityPub works correctly.
+​
+
+(Optional) Domain setup in Caddy
+
+The Caddyfile is setup for various domain setups. You can get to your desired setup by uncommenting the relevant blocks.
+Edit the Caddyfile in caddy/Caddyfile:
+
+For separate admin domains (optional), uncomment the “Separate admin domains” block
+
+If you’re using a root or “naked” domain like mysite.com for DOMAIN in .env: Redirect the www variant to your root domain by setting up DNS for both domains and then uncomment the “Redirect www -> root domain” block.
+
+If you’re using a www domain for DOMAIN in .env: Redirect your root domain to the www variant by setting up DNS for both domains, then uncomment the “Redirect root -> www domain” block” and set CHANGE_ME to your root domain without the www. This is required for ActivityPub to work correctly with www domains.
+
+You only need to uncomment blocks, and if necessary edit CHANGE_ME. All the other variables come from .env and should be left as-is.
+​
+
+Install and run Ghost
+
+Use Docker Compose commands to install and run your Ghost site. These commands may each take a little while:
+
+docker compose pull
+docker compose up -d
+
+Now your site is running! Open a browser and navigate to your domain to see Ghost in action.
+Navigate to the admin panel on /ghost to complete your setup 🎉
+​
+
+Enabling Web Analytics
+
+This section assumes you’ve completed a fresh setup from the section above or have migrated an existing site to Docker.
+​
+
+Get Tinybird setup
+
+Make sure you have a Tinybird account with a workspace. You can choose any cloud and region. Then, making sure you’re still inside of /opt/ghost, run the following 4 commands:
+
+docker compose run --rm tinybird-login
+
+Follow the steps to login to your Tinybird account.
+
+docker compose run --rm tinybird-sync
+
+Copy the Tinybird schema files from the Ghost container into a shared volume. The service should log “Tinybird files synced into shared volume.”, then exit.
+
+docker compose run --rm tinybird-deploy
+
+Deploy your tinybird configuration. This will create your Tinybird datasources, pipes and API endpoints. It may take a minute or two to complete the first time. You should see “Deployment #1 is live!” in your terminal before the service exits.
+
+docker compose run --rm tinybird-login get-tokens
+
+Get your tinybird tokens and configuration and copy them ready for the next step…
+​
+
+Edit the .env file
+
+Paste the values from the previous step into the “Tinybird configuration” section.
+Add analytics to the COMPOSE_PROFILES variable at the top. This automatically includes the analytics profile when running docker compose commands:
+
+COMPOSE_PROFILES=analytics,activitypub
+
+# Alternatively if you only want analytics
+COMPOSE_PROFILES=analytics
+
+​
+
+Install and run Ghost with Web Analytics
+
+Use Docker Compose to install new images and run Ghost with Web Analytics:
+
+docker compose pull
+docker compose up -d
+
+Verify it’s working by visiting your homepage and then checking the visit appears in the “Analytics” section of Ghost admin.
+​
+
+Enabling Social Web (ActivityPub)
+
+By default, all new Ghost installs are configured to use the Ghost(Pro) hosted ActivityPub Service, meaning the Social Web features work out of the box. This hosted service is free to use for all self-hosters, with some usage limits.
+If you would like to host the ActivityPub Service yourself, follow these steps:
+​
+
+Edit the .env file
+
+Add activitypub to the COMPOSE_PROFILES variable at the top. This automatically includes the activitypub profile when running docker compose commands:
+
+COMPOSE_PROFILES=analytics,activitypub
+
+# Alternatively if you only want activitypub
+COMPOSE_PROFILES=activitypub
+
+Next, uncomment the ACTIVITYPUB_TARGET line to point to your local install. It should look like this:
+
+ACTIVITYPUB_TARGET=activitypub:8080
+
+​
+
+Install and run Ghost with ActivityPub
+
+Use docker compose to install new images and run Ghost with ActivityPub:
+
+docker compose pull
+docker compose up -d --force-recreate ghost caddy
+
+Verify it’s working by visiting the “Network” section of Ghost Admin.
+​
+
+Hosted ActivityPub Usage Limits
+
+Self-hosters are free to use the hosted ActivityPub service, up to the following limits:
+
+2000 max. followers
+
+2000 max. following
+
+max. 100 interactions per day (interactions include: create a post/note, reply, like, repost)
+
+If your usage exceeds this, you’ll need to switch to self-hosting ActivityPub as explained above.
+
+---
+
+​
+
+Future maintenance
+
+​
+
+Updating Ghost
+
+Use docker compose to update Ghost regularly:
+
+# ensure you're in the directory where you installed ghost and pull the latest configuration
+cd /opt/ghost
+git pull
+
+# pull the latest images and restart to use them
+docker compose pull
+docker compose up -d
+
+# optionally clean up old images
+docker image prune
+
+Or the one-liner, if you’re in the directory where you cloned the docker tools:
+
+git pull && docker compose pull && docker compose up -d
+
+​
+
+Updating config
+
+When changing your Ghost config in .env you’ll need to recreate the Ghost container.
+
+docker compose up -d --force-recreate ghost
+
+Any time that DOMAIN, ADMIN_DOMAIN or ACTIVITYPUB_TARGET are changed in the .env file, the Caddy container also needs recreating:
+
+docker compose up -d --force-recreate ghost caddy
+
+When changing any other environment variables in .env that are used in the compose.yml the service using the variable will also need recreating in the same way.
+The single exception is the DATABASE_xxx variables. These must not be changed once the database has been initialised, as it will change the config, but not the actual values the database expects, therefore causing connection errors.
+
+---
+
+​
+
+Migrating a Ghost-CLI Install
+
+Using our migration assistant, you can migrate a Ghost-CLI site over to the new Docker Compose setup in place on the same sever.
+The migration assistant performs the following actions:
+
+Copies your Ghost content directory to a new folder that is bind mounted into the Ghost Docker container
+
+Dump your existing Ghost database and imports it in to a Docker based MySQL container
+
+Stops and disables your existing Ghost site
+
+Stops your Nginx instance
+
+Starts a Caddy webserver which handles TLS termination for you
+
+Provides a rollback option if anything goes wrong
+
+​
+
+Prerequisites
+
+A Ghost-CLI install that you’d like to migrate
+
+Docker 20.10.13 or higher installed (See: docker install guide)
+
+A domain name with a DNS A-Record pointing to the server’s IP address
+
+An SMTP email service for transactional mail (See: email config docs)
+
+(Optional) A Tinybird account for web analytics
+
+​
+
+Get started
+
+To get started, SSH into your server as root.
+Next, follow the first 3 sections from “Install Ghost” above, stopping before installing and running Ghost with the Docker Compose commands:
+
+Clone the repo
+
+Setup your config
+
+Domain setup in Caddy
+
+​
+
+Run the migration assistant
+
+Be aware that the migration assistant will ask to stop your existing Nginx install which will take your site offline. If you have other sites running on the same server you will want to answer No to this option.
+
+bash scripts/migrate.sh
+
+If at any point you want to stop the migration you can cancel the script by pressing CTRL+C and then running bash recovery_instructions.sh to restore your original Ghost site. The migration script can be run multiple times if it errors without issue.
+The migration script doesn’t delete any data. After you’ve migrated you should remove your existing installation once you’re happy.
+​
+
+Enable additional services
+
+If you want to enable Web Analytics or ActivityPub, you can now follow the relevant sections from above:
+
+Enabling Web Analytics
+
+Enabling Social Web (ActivityPub)
+
+---
+
+​
+
+Troubleshooting Docker
+
+If this setup doesn’t “just work” out of the box, there’s likely a configuration error or server incompatibility issue that needs tracking down.
+Use docker compose logs caddy to see the webserver logs. Try this first if you get an error like “This site can’t be reached”.
+Use docker compose logs ghost to see the Ghost logs as the next step.
+If your issue is clearly with a different service, docker compose logs [service] will show you more details.
+If you get really stuck, post the details on https://forum.ghost.org.
+
+---
+
+​
+
+Tinybird Integration
+
+Note: there are no additional steps required for Tinybird to work, provided you’ve completed the initial setup steps for traffic analytics.
+​
+
+Configuration
+
+Since Tinybird is a third party service that is running outside the Docker Compose network, we need to provide Ghost and the Traffic Analytics service a few pieces of configuration, so they can integrate properly with your Tinybird workspace. The initial setup of these configuration parameters is covered in the initial setup steps. The following provides some more information on what each required configuration parameter is, why it’s needed, and where you can find it.
+
+TINYBIRD_API_URL: This is the API url for your Tinybird workspace, which Ghost uses to make requests to your Tinybird workspace’s endpoints. The value will vary depending on which cloud / region your workspace is hosted in. You can find this value by running tb info from the Tinybird CLI and using the value of the api key, or in the Tinybird UI by going to Endpoints, selecting any endpoint, and finding the full URL of the endpoint.
+
+TINYBIRD_ADMIN_TOKEN: This is a token that is automatically created by Tinybird, which enables any operation in your workspace. You can find it in your Tinybird workspace’s UI under the “Tokens” tab, named “Workspace admin token”. Ghost uses the admin token to sign JWTs, which Ghost and Admin use to authenticate with Tinybird’s API endpoints.
+
+TINYBIRD_WORKSPACE_ID: This is a unique identifier for your workspace generated by Tinybird. You can find it in your Tinybird workspace’s UI under Settings. Ghost also uses this value to sign JWTs to authenticate with Tinybird’s API endpoints.
+
+TINYBIRD_TRACKER_TOKEN: This is a token that grants write access to the main analytics_events datasource in Tinybird. You can find this value in the Tinybird UI under “Tokens”. This is passed to the traffic-analytics service, which adds it to each request that is proxied to Tinybird.
+
+​
+
+Deployments (”Migrations”)
+
+The Ghost service itself contains the Tinybird datafiles, which define the schema of our datasources and the query logic that generates the materialized views, pipes and endpoints in the Tinybird workspace. When new versions of Ghost are shipped, there may be changes made to these files, and those changes will need to be deployed to your Tinybird workspace to be compatible with the incoming new version of Ghost.
+The ghost-docker repo includes handling for these “migrations” to run automatically when running docker compose up. Provided you’ve followed the initial setup instructions for traffic analytics, there shouldn’t be any intervention required to update your Tinybird workspace when updating to a new version of Ghost.
+​
+
+How it works
+
+Here’s an overview of what all is happening behind the scenes when updating to a new version of Ghost with changes to the Tinybird datafiles:
+
+When you run docker compose pull and docker compose up -d as part of the normal upgrade process, this will pull the latest version of the Ghost container to your host. This container includes the Tinybird datafiles.
+
+The tinybird-login container will run. Assuming you’ve already logged in to Tinybird as part of your initial setup, this service will noop. If you’re not logged in to Tinybird already for any reason, this service will fail, which means the Tinybird migrations did not run.
+
+If you’re not logged in, run docker compose run --rm tinybird-login first, then run docker compose up -d again.
+
+After tinybird-login has completed successfully, the tinybird-sync service will run in the new Ghost container. This service copies the Tinybird files from the Ghost container into the tinybird_files volume, then exits.
+
+After the tinybird-sync service completes successfully, the tinybird-deploy service will run. This service will create and promote a new deployment in your workspace with the changes (if any) to the files in the tinybird_files volume to Tinybird, using the tb --cloud deploy command of the Tinybird CLI.
+
+​
+
+What is a deployment?
+
+The tb --cloud deploy command technically doesn’t run “migrations” in the traditional sense at all. Instead it compares your local Tinybird datafiles with what is currently deployed to your workspace to figure out what needs to change (if anything). If your workspace isn’t up-to-date with your local Tinybird datafiles, the CLI will create a new deployment with the changes. Once the new deployment is complete and healthy, Tinybird will promote it to be the current “Live” deployment, and remove the previous deployment.
+You can view all the deployments in your workspace in the Tinybird UI under “Deployments” in the left sidebar, or use the tb deployment commands to interact with deployments via the CLI. For more information on what deployments are and how they work, read Tinybird’s docs on deployments.
+​
+
+What if a deployment fails?
+
+If a new version of Ghost includes changes to the Tinybird files, and any of the tinybird-* services fail, don’t panic! The previous deployment in your Tinybird workspace should still be live and healthy. If a deployment fails for any reason, you’ll need to diagnose what went wrong, fix it, then run docker compose up -d to try again.
+Here are a few steps you can take to start troubleshooting:
+
+Check the logs of the tinybird-login service using docker compose logs tinybird-login. If this service was successful, you should see “Tinybird already logged in” in the logs. If this service failed for any reason, try authenticating with Tinybird again using docker compose run --rm tinybird-login.
+
+Check the logs of the tinybird-sync service using docker compose logs tinybird-sync. If this service was successful, you should see “Tinybird files synced into shared volume.”
+
+Check the logs of the tinybird-deploy service using docker compose logs tinybird-deploy. This will show the complete logs from the latest attempt to deploy changes to your Tinybird workspace, which should hopefully tip you off to what went wrong.
+
+Check the “Deployments” section of your Tinybird UI (Tinybird Worksapce > Deployments on the left side bar). This will show you which Deployment is currently live, and may provide some hints if the latest deployment failed for any reason.
+
+Suggest editsRaise issue
+
+⌘I
+
+githubtwitterblueskyreddit
+Powered byThis documentation is built and hosted on Mintlify, a developer documentation platform
