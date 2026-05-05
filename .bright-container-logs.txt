@@ -1,0 +1,69 @@
+=== ghost-analytics-1 ===
+{"severity":"INFO","level":30,"timestamp":{"seconds":1778000852,"nanos":890000000},"pid":1,"hostname":"c84c2b7fdcc2","event":"SaltCleanupSchedulerStarting","delayMinutes":33,"serviceContext":{"service":"analytics-service"},"logging.googleapis.com/insertId":"..........3uC5sz_UtCzcU5hePaXMlm"}
+{"severity":"WARNING","level":40,"timestamp":{"seconds":1778000852,"nanos":979000000},"pid":1,"hostname":"c84c2b7fdcc2","event":"HmacValidationDisabled","serviceContext":{"service":"analytics-service"},"logging.googleapis.com/insertId":"..........7uC5sz_UtCzcU5hePaXMlm"}
+{"severity":"INFO","level":30,"timestamp":{"seconds":1778000853,"nanos":23000000},"pid":1,"hostname":"c84c2b7fdcc2","serviceContext":{"service":"analytics-service"},"logging.googleapis.com/insertId":"..........BuC5sz_UtCzcU5hePaXMlm","message":"Server listening at http://127.0.0.1:3000"}
+{"severity":"INFO","level":30,"timestamp":{"seconds":1778000853,"nanos":23000000},"pid":1,"hostname":"c84c2b7fdcc2","serviceContext":{"service":"analytics-service"},"logging.googleapis.com/insertId":"..........FuC5sz_UtCzcU5hePaXMlm","message":"Server listening at http://172.18.0.7:3000"}
+{"severity":"INFO","level":30,"timestamp":{"seconds":1778000867,"nanos":137000000},"pid":1,"hostname":"c84c2b7fdcc2","logging.googleapis.com/diagnostic":{"instrumentation_source":[{"name":"nodejs-gcppino","version":"1.3.3"},{"name":"nodejs","version":"11.2.1"}],"runtime":"v22.22.2"},"serviceContext":{"service":"analytics-service"},"logging.googleapis.com/insertId":"..........JuC5sz_UtCzcU5hePaXMlm"}
+
+=== ghost-db-1 ===
+2026-05-05 17:07:32+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.5-1.el9 started.
+2026-05-05 17:07:32+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-05-05 17:07:32+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.5-1.el9 started.
+2026-05-05 17:07:32+00:00 [Note] [Entrypoint]: Initializing database files
+2026-05-05 17:07:35+00:00 [Note] [Entrypoint]: Database files initialized
+2026-05-05 17:07:35+00:00 [Note] [Entrypoint]: Starting temporary server
+2026-05-05 17:07:35+00:00 [Note] [Entrypoint]: Temporary server started.
+'/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+2026-05-05 17:07:36+00:00 [Note] [Entrypoint]: Creating database ghost_dev
+2026-05-05 17:07:36+00:00 [Note] [Entrypoint]: Creating user ghost
+2026-05-05 17:07:36+00:00 [Note] [Entrypoint]: Giving user ghost access to schema ghost_dev
+
+2026-05-05 17:07:36+00:00 [Note] [Entrypoint]: Stopping temporary server
+2026-05-05 17:07:38+00:00 [Note] [Entrypoint]: Temporary server stopped
+
+2026-05-05 17:07:38+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+
+=== ghost-mailpit-1 ===
+time="2026/05/05 17:07:32" level=info msg="[cors] allowed API origins: "
+time="2026/05/05 17:07:32" level=info msg="[smtpd] starting on [::]:1025 (no encryption)"
+time="2026/05/05 17:07:32" level=info msg="[http] starting on [::]:8025"
+time="2026/05/05 17:07:32" level=info msg="[http] accessible via http://localhost:8025/"
+
+=== ghost-redis-1 ===
+1:C 05 May 2026 17:07:32.079 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:C 05 May 2026 17:07:32.079 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 05 May 2026 17:07:32.079 * Redis version=7.4.8, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 05 May 2026 17:07:32.079 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+1:M 05 May 2026 17:07:32.080 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+1:M 05 May 2026 17:07:32.080 * monotonic clock: POSIX clock_gettime
+1:M 05 May 2026 17:07:32.080 * Running mode=standalone, port=6379.
+1:M 05 May 2026 17:07:32.080 * Server initialized
+1:M 05 May 2026 17:07:32.080 * Ready to accept connections tcp
+
+=== ghost-tinybird-local-1 ===
+2026-05-05 17:07:32,186 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-05-05 17:07:32,186 INFO Included extra file "/etc/supervisor/conf.d/supervisord.conf" during parsing
+2026-05-05 17:07:32,187 INFO RPC interface 'supervisor' initialized
+2026-05-05 17:07:32,188 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2026-05-05 17:07:32,188 INFO supervisord started with pid 1
+2026-05-05 17:07:33,190 INFO spawned: 'clickhouse' with pid 7
+2026-05-05 17:07:33,192 INFO spawned: 'nginx' with pid 8
+2026-05-05 17:07:33,193 INFO spawned: 'redis' with pid 9
+2026-05-05 17:07:33,195 INFO spawned: 'sentinel' with pid 10
+2026-05-05 17:07:33,197 INFO spawned: 'setup' with pid 11
+2026-05-05 17:07:33,199 INFO spawned: 'tinybird' with pid 14
+2026-05-05 17:07:33,200 INFO spawned: 'tinybird-hfi' with pid 15
+2026-05-05 17:07:33,202 INFO spawned: 'tinybird-kafka' with pid 16
+2026-05-05 17:07:33,203 INFO spawned: 'tinybird-mcp' with pid 17
+2026-05-05 17:07:34,228 INFO success: clickhouse entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:34,228 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:34,228 INFO success: redis entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:34,228 INFO success: sentinel entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:34,228 INFO success: setup entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:34,228 INFO success: tinybird entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:34,228 INFO success: tinybird-hfi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:34,228 INFO success: tinybird-kafka entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:34,228 INFO success: tinybird-mcp entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-05-05 17:07:39,576 INFO exited: setup (exit status 1; not expected)
+2026-05-05 17:07:40,578 INFO spawned: 'setup' with pid 1243
+2026-05-05 17:07:41,579 INFO success: setup entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
