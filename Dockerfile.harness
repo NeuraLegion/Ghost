@@ -1,0 +1,50 @@
+FROM node:20-slim
+
+WORKDIR /app
+
+ENV NODE_ENV=development
+ENV PORT=3001
+
+# Keep source resolution aligned with Ghost's project layout
+COPY . /app
+COPY harness.js /app/harness.js
+
+# The repo is a pnpm workspace and some package manifests use pnpm-specific
+# protocols such as "catalog:" / "workspace:". Running `npm install` in the
+# repo root causes npm to read those manifests and fail with
+# EUNSUPPORTEDPROTOCOL. Install only the runtime deps needed by the harness in
+# an isolated directory so npm never parses the workspace manifests.
+RUN mkdir -p /tmp/harness-deps \
+    && cd /tmp/harness-deps \
+    && npm init -y \
+    && npm install --omit=dev --no-save \
+        express \
+        @extractus/oembed-extractor \
+        @tryghost/domain-events \
+        @tryghost/errors \
+        @tryghost/logging \
+        @tryghost/string \
+        @tryghost/tpl \
+        bson-objectid \
+        charset \
+        cheerio@0.22.0 \
+        file-type@16.5.4 \
+        got@13.0.0 \
+        heic-convert \
+        iconv-lite \
+        lodash \
+        metascraper \
+        metascraper-author \
+        metascraper-description \
+        metascraper-image \
+        metascraper-logo \
+        metascraper-logo-favicon \
+        metascraper-publisher \
+        metascraper-title \
+        metascraper-url \
+        mime-types \
+    && ln -s /tmp/harness-deps/node_modules /app/node_modules
+
+EXPOSE 3001
+
+CMD ["node", "harness.js"]
