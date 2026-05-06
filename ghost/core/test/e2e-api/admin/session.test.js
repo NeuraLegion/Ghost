@@ -52,6 +52,34 @@ describe('Sessions API', function () {
             .expectStatus(403);
     });
 
+    it('returns the same unauthorized response for invalid username and password', async function () {
+        const owner = await fixtureManager.get('users', 0);
+
+        const invalidUsername = await agent
+            .post('session/')
+            .body({
+                grant_type: 'password',
+                username: 'not-a-real-user@example.com',
+                password: owner.password
+            })
+            .expectStatus(401)
+            .expectHeader('content-type', /json/)
+            .response;
+
+        const invalidPassword = await agent
+            .post('session/')
+            .body({
+                grant_type: 'password',
+                username: owner.email,
+                password: 'definitely-wrong-password'
+            })
+            .expectStatus(401)
+            .expectHeader('content-type', /json/)
+            .response;
+
+        assert.deepEqual(invalidUsername.body, invalidPassword.body);
+    });
+
     describe('Staff 2FA', function () {
         let mail;
 

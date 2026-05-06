@@ -43,22 +43,10 @@ const controller = {
                 });
             });
         }).catch(async (err) => {
-            if (!errors.utils.isGhostError(err)) {
-                throw new errors.UnauthorizedError({
-                    message: tpl(messages.accessDenied),
-                    err
-                });
-            }
-
-            if (err.errorType === 'PasswordResetRequiredError') {
-                await api.authentication.generateResetToken({
-                    password_reset: [{
-                        email: object.username
-                    }]
-                }, frame.options.context);
-            }
-
-            throw err;
+            throw new errors.UnauthorizedError({
+                message: tpl(messages.accessDenied),
+                err
+            });
         });
     },
     delete() {
