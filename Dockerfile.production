@@ -1,61 +1,69 @@
 # syntax=docker/dockerfile:1-labs@sha256:7eca9451d94f9b8ad22e44988b92d595d3e4d65163794237949a8c3413fbed5d
 
-# Production Dockerfile for Ghost
-# Two targets:
-#   core — server + production deps, no admin (Ghost-Pro base)
-#   full — core + built admin (self-hosting)
-#
-# Build context: extracted `npm pack` output from ghost/core
-
 ARG NODE_VERSION=22.18.0
-
-# ---- Core: server + production deps ----
-FROM node:$NODE_VERSION-bookworm-slim AS core
+FROM node:${NODE_VERSION}-bookworm-slim
 
 ARG GHOST_BUILD_VERSION=""
-ENV NODE_ENV=production
-ENV GHOST_BUILD_VERSION=${GHOST_BUILD_VERSION}
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libjemalloc2 fontconfig && \
-    rm -rf /var/lib/apt/lists/* && \
-    groupmod -g 1001 node && \
-    usermod -u 1001 node && \
-    adduser --disabled-password --gecos "" -u 1000 ghost
+ENV NODE_ENV=production \
+    GHOST_BUILD_VERSION=${GHOST_BUILD_VERSION} \
+    PNPM_HOME=/pnpm \
+    PATH=/pnpm:$PATH \
+    LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 WORKDIR /home/ghost
 
-COPY --exclude=core/built/admin . .
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        python3 \
+        git \
+        ca-certificates \
+        libjemalloc2 \
+        fontconfig && \
+    rm -rf /var/lib/apt/lists/* && \
+    if getent group 1000 >/dev/null; then \
+        EXISTING_GROUP="$(getent group 1000 | cut -d: -f1)"; \
+    else \
+        addgroup --gid 1000 ghost; \
+        EXISTING_GROUP="ghost"; \
+    fi && \
+    if getent passwd 1000 >/dev/null; then \
+        EXISTING_USER="$(getent passwd 1000 | cut -d: -f1)"; \
+        usermod -l ghost -d /home/ghost -m "${EXISTING_USER}"; \
+        if [ "${EXISTING_GROUP}" != "ghost" ]; then \
+            groupmod -n ghost "${EXISTING_GROUP}"; \
+        fi; \
+    else \
+        adduser --disabled-password --gecos "" --uid 1000 --gid 1000 ghost; \
+    fi
 
-RUN corepack enable
+COPY . .
+
+RUN corepack enable && \
+    corepack prepare pnpm@10.33.0 --activate && \
+    pnpm config set store-dir /root/.local/share/pnpm/store && \
+    pnpm config set package-import-method copy && \
+    pnpm config set prefer-offline true
 
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,id=pnpm-store \
-    apt-get update && \
-    apt-get install -y --no-install-recommends build-essential python3 && \
-    pnpm install --ignore-scripts --prod --prefer-offline && \
-    (cd node_modules/sqlite3 && npm run install) && \
-    apt-get purge -y build-essential python3 && \
+    pnpm install --frozen-lockfile && \
+    SQLITE3_DIR="$(node -p "require('path').dirname(require.resolve('sqlite3/package.json', {paths: ['./ghost/core']}))")" && \
+    cd "$SQLITE3_DIR" && npm run install && cd /home/ghost && \
+    pnpm build:production && \
+    mkdir -p /home/ghost/ghost/core/default /home/ghost/ghost/core/log && \
+    cp -R /home/ghost/ghost/core/content /home/ghost/ghost/core/base_content && \
+    cp -R /home/ghost/ghost/core/content/themes/casper /home/ghost/ghost/core/default/casper && \
+    ([ -d /home/ghost/ghost/core/content/themes/source ] && cp -R /home/ghost/ghost/core/content/themes/source /home/ghost/ghost/core/default/source || true) && \
+    apt-get purge -y build-essential python3 git && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
-    mkdir -p default log && \
-    cp -R content base_content && \
-    cp -R content/themes/casper default/casper && \
-    ([ -d content/themes/source ] && cp -R content/themes/source default/source || true) && \
-    chown ghost:ghost /home/ghost && \
-    chown -R nobody:nogroup /home/ghost/* && \
-    chown -R ghost:ghost /home/ghost/content /home/ghost/log
+    chown -R ghost:ghost /home/ghost
+
+WORKDIR /home/ghost/ghost/core
 
 USER ghost
-ENV LD_PRELOAD=libjemalloc.so.2
 
 EXPOSE 2368
 
 CMD ["node", "index.js"]
-
-# ---- Full: core + admin ----
-FROM core AS full
-
-USER root
-COPY core/built/admin core/built/admin
-RUN chown -R nobody:nogroup core/built/admin
-USER ghost

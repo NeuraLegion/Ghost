@@ -1,0 +1,702 @@
+Configuration - Ghost Developer Docs
+Skip to main content
+Ghost Developer Docs home page
+
+Search...
+
+⌘K
+Sign in
+Get Started
+Get Started
+
+Search...
+
+Navigation
+Core Concepts
+Configuration
+
+Home
+Documentation
+Migration Guides
+
+Tutorials
+
+Developer Forum
+Getting Started
+
+Introduction
+
+Installation
+
+Hosting Guide
+
+Updates & Versions
+
+Core Concepts
+
+Overview
+
+Architecture
+
+Configuration
+
+Staff Users
+
+Publishing
+
+Memberships
+
+Recommendations
+
+Newsletters
+
+Security
+
+Themes
+
+Overview
+
+Structure
+
+Contexts
+
+Assets
+
+Helpers
+
+Content
+
+Search
+
+Share
+
+Members
+
+Routing
+
+Custom Settings
+
+GScan
+
+Advanced Tools
+
+Ghost CLI
+
+Content API
+
+Admin API
+
+JAMstack
+
+Webhooks
+
+Resources
+
+FAQ
+
+Breaking Changes
+
+Contributing
+
+LLM
+
+License
+
+Logos
+
+Trademark
+
+On this pageOverview
+Custom configuration files
+Ghost in development
+Debugging the configuration output
+Running Ghost with config env variables
+Configuration options
+URL
+SSL
+Database
+Number of connections
+SSL
+Mail
+Configuring with Mailgun
+Create a Mailgun account
+Add credentials to config.production.json
+Secure connection
+Amazon SES
+Email addresses
+Admin URL
+Server
+Privacy
+Security
+Paths
+Referrer Policy
+Adapters
+Storage adapters
+Available storage features
+Available custom storage adapters
+Creating a custom storage adapter
+Cache adapters
+Ghost’s built-in Redis cache adapter
+Custom cache adapters
+Creating a custom cache adapter
+Location
+Base cache adapter class inheritance
+Required methods
+Logging
+level
+rotation
+transports
+path
+useLocalTime
+Spam
+Caching
+Compress
+Image optimization
+OpenSea
+Tenor
+Twitter
+Pintura
+Portal
+Search
+Comments
+
+Core Concepts
+
+Configuration
+
+For self-hosted Ghost users, a custom configuration file can be used to override Ghost’s default behaviour. This provides you with a range of options to configure your publication to suit your needs.
+
+Documentation Index
+Fetch the complete documentation index at: https://docs.ghost.org/llms.txt
+Use this file to discover all available pages before exploring further.
+
+---
+
+​
+
+Overview
+
+When you install Ghost using the supported and recommended method using ghost-cli, a custom configuration file is created for you by default. There are some configuration options which are required by default, and many optional configurations.
+The three required options are url and database which are configured during setup, and mail which needs to be configured once you’ve installed Ghost.
+This article explains how to setup your mail config, as well as walk you through all of the available config options.
+​
+
+Custom configuration files
+
+The configuration is managed by nconf. A custom configuration file must be a valid JSON file located in the root folder and changes to the file can be implemented using ghost restart.
+Since Node.js has the concept of environments built in, Ghost supports two environments: development and production. All public Ghost publications run in production mode, while development mode can be used to test or build on top of Ghost locally.
+
+Check out the official install guides for development and production.
+
+The configuration files reflect the environment you are using:
+
+config.development.json
+
+config.production.json
+
+​
+
+Ghost in development
+
+If you would like to start Ghost in development, you don’t have to specify any environment, because development is default. To test Ghost in production, you can use:
+
+NODE_ENV=production node index.js
+
+If you want to make changes when developing and working on Ghost, you can create a special configuration file that will be ignored in git:
+
+config.local.json
+
+This file is merged on top of config.development.json so you can use both at the same time.
+​
+
+Debugging the configuration output
+
+Start Ghost with:
+
+DEBUG=ghost:*,ghost-config node index.js
+
+​
+
+Running Ghost with config env variables
+
+ALL configuration options are overridable with environment variables!
+Values set through env vars take priority over data in configuration files
+
+Start Ghost using environment variables which match the name and case of each config option:
+
+url=http://ghost.local:2368 node index.js
+
+For nested config options, separate with two underscores:
+
+database__connection__host=mysql node index.js
+
+If you want to set a var of list type:
+
+logging__transports='["stdout","file"]' node index.js
+
+​
+
+Configuration options
+
+There are a number of configuration options which are explained in detail in this article. Below is an index of all configuration options:
+NameRequired?Description
+urlIn productionSet the public URL for your blog
+databaseIn productionType of database used (default: MySQL)
+mailIn productionAdd a mail service
+adminOptionalSet the protocol and hostname for your admin panel
+serverOptionalHost and port for Ghost to listen on
+privacyOptionalDisable features set in privacy.md
+securityOptionalDisable security features that are enabled by default
+pathsOptionalCustomise internal paths
+referrerPolicyOptionalControl the content attribute of the meta referrer tag
+useMinFilesOptionalGenerate assets URL with .min notation
+storageOptionalSet a custom storage adapter
+schedulingOptionalSet a custom scheduling adapter
+loggingOptionalConfigure logging for Ghost
+spamOptionalConfigure spam settings
+cachingOptionalConfigure HTTP caching settings
+compressOptionalDisable compression of server responses
+imageOptimizationOptionalConfigure image manipulation and processing
+openseaOptionalIncrease rate limit for fetching NFT embeds from OpenSea.io
+tenorOptionalEnable integration with Tenor.com for embedding GIFs directly from the editor
+twitterOptionalAdd support for rich Twitter embeds in newsletters
+portalOptionalRelocate or remove the scripts for Portal
+sodoSearchOptionalRelocate or remove the scripts for Sodo search
+commentsOptionalRelocate or remove the scripts for comments
+
+​
+
+URL
+
+(Required in production)
+Once a Ghost publication is installed, the first thing to do is set a URL. When installing using ghost-cli, the install process requests the URL during the setup process.
+Enter the URL that is used to access your publication. If using a subpath, enter the full path, https://example.com/blog/. If using SSL, always enter the URL with https://.
+​
+
+SSL
+
+We always recommend using SSL to run your Ghost publication in production. Ghost has a number of configuration options for working with SSL, and securing the URLs for the admin /ghost/ and the frontend of your publication. Without SSL your username and password are sent in plaintext.
+ghost-cli prompts to set up SSL during the installation process. After a successful SSL setup, you can find your SSL certificate in /etc/letsencrypt.
+If you see errors such as access denied from url, then the provided URL in your config file is incorrect and needs to be updated.
+​
+
+Database
+
+(Required in production)
+Ghost is configured using MySQL by default:
+
+"database": {
+"client": "mysql",
+"connection": {
+"host": "127.0.0.1",
+"port": 3306,
+"user": "your_database_user",
+"password": "your_database_password",
+"database": "your_database_name"
+}
+}
+
+Alternatively, you can configure sqlite3:
+
+"database": {
+"client": "sqlite3",
+"connection": {
+"filename": "content/data/ghost-test.db"
+},
+"useNullAsDefault": true,
+"debug": false
+}
+
+​
+
+Number of connections
+
+It’s possible to limit the number of simultaneous connections using the pool setting. The default values are a minimum of 2 and a maximum of 10, which means Ghost always maintains two active database connections. You can set the minimum to 0 to prevent this:
+
+"database": {
+"client": ...,
+"connection": { ... },
+"pool": {
+"min": 2,
+"max": 20
+}
+}
+
+​
+
+SSL
+
+In a typical Ghost installation, the MySQL database will be on the same server as Ghost itself. With cloud computing and database-as-a-service providers you might want to enable SSL connections to the database.
+For Amazon RDS you’ll need to configure the connection with "ssl": "Amazon RDS":
+
+"database": {
+"client": "mysql",
+"connection": {
+"host": "your_cloud_database",
+"port": 3306,
+"user": "your_database_user",
+"password": "your_database_password",
+"database": "your_database_name",
+"ssl": "Amazon RDS"
+}
+}
+
+For other hosts, you’ll need to output your CA certificate (not your CA private key) as a single line string including literal new line characters \n (you can get the single line string with awk '{printf "%s\\n", $0}' CustomRootCA.crt) and add it to the configuration:
+
+"database": {
+"client": "mysql",
+"connection": {
+"host": "your_cloud_database",
+"port": 3306,
+"user": "your_database_user",
+"password": "your_database_password",
+"database": "your_database_name",
+"ssl": {
+"ca": "-----BEGIN CERTIFICATE-----\nMIIFY... truncated ...pq8fa/a\n-----END CERTIFICATE-----\n"
+}
+}
+}
+
+For a certificate chain, include all CA certificates in the single line string:
+
+"database": {
+"client": "mysql",
+"connection": {
+"host": "your_cloud_database",
+"port": 3306,
+"user": "your_database_user",
+"password": "your_database_password",
+"database": "your_database_name",
+"ssl": {
+"ca": "-----BEGIN CERTIFICATE-----\nMIIFY... truncated ...pq8fa/a\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIFY... truncated ...wn8v90/a\n-----END CERTIFICATE-----\n"
+}
+}
+}
+
+​
+
+Mail
+
+(Required in production)
+The most important piece of configuration once the installation is complete is to set up mail. Configuring mail allows Ghost to send transactional emails such as user invitations, password resets, member signups, and member login links. With the help of a bulk email service, you can also configure Ghost to send newsletters to members.
+Ghost uses Nodemailer under the hood, and tries to use the direct mail service if available.
+We recommend ensuring transactional emails are functional before moving on to bulk mail configuration.
+​
+
+Configuring with Mailgun
+
+Mailgun is a service for sending emails and provides more than adequate resources to send bulk emails at a reasonable price. Find out more about using Mailgun with Ghost here.
+Mailgun allows you to use your own domain for sending transactional emails. Otherwise, you can use a subdomain that Mailgun provides you with (also known as the sandbox domain, limited to 300 emails per day). You can change this at any time.
+Mailgun is an optional service for sending transactional emails, but it is required for bulk mail — read more.
+​
+
+Create a Mailgun account
+
+Once your site is fully set up create a Mailgun account. After your account is verified navigate to Domain settings under Sending in the Mailgun admin. There you’ll find your SMTP credentials.
+
+In addition to this information, you’ll need the password, which can be obtained by clicking the Reset Password button. Keep these details for future reference.
+Mailgun provides options for using their own subdomains for sending emails, as well as custom domains for a competitive price.
+​
+
+Add credentials to config.production.json
+
+Open your production config file in any code editor and add the following mail configuration, making sure to update the values to the same credentials shown in your own Mailgun SMTP settings:
+
+// config.production.json
+
+"mail": {
+"transport": "SMTP",
+"options": {
+"service": "Mailgun",
+"auth": {
+"user": "postmaster@example.mailgun.org",
+"pass": "1234567890"
+}
+}
+},
+
+Once you are finished, hit save and then run ghost restart for your changes to take effect. These same credentials can be used for development environments, by adding them to the config.development.json file.
+Mailgun provides a sandbox mode, which restricts emails to authorized recipients. Once sandbox mode is enabled, add and verify the email addresses you want to send emails to prior to testing.
+​
+
+Secure connection
+
+Depending on your Mailgun settings you may want to force a secure SMTP connection. Update your config.production.json with the following for a secure connection:
+
+// config.production.json
+
+"mail": {
+"transport": "SMTP",
+"options": {
+"service": "Mailgun",
+"host": "smtp.mailgun.org",
+"port": 465,
+"secure": true,
+"auth": {
+"user": "postmaster@example.mailgun.org",
+"pass": "1234567890"
+}
+}
+},
+
+As always, hit save and run ghost restart for your changes to take effect.
+​
+
+Amazon SES
+
+It’s also possible to use Amazon Simple Email Service. Use the SMTP username and password given when signing up and configure your config.[env].json file as follows:
+
+"mail": {
+"transport": "SMTP",
+"options": {
+"host": "YOUR-SES-SERVER-NAME",
+"port": 465,
+"service": "SES",
+"auth": {
+"user": "YOUR-SES-SMTP-ACCESS-KEY-ID",
+"pass": "YOUR-SES-SMTP-SECRET-ACCESS-KEY"
+}
+}
+}
+
+​
+
+Email addresses
+
+Default email address
+Ghost uses the value set in mail.from as the default email address:
+
+"mail": {
+"from": "support@example.com",
+}
+
+A custom name can also optionally be provided:
+
+"mail": {
+"from": "'Acme Support' <support@example.com>",
+}
+
+Try to use a real, working email address - as this greatly improves delivery rates for important emails sent by Ghost (Like password reset requests and user invitations). If you have a company support email address, this is a good place to use it.
+Support email address
+When setting a custom support email address via Settings → Portal settings → Account page, you override the default email address for member communications like sign-in/sign-up emails and member notifications.
+Newsletter addresses
+It’s also possible to set a separate sender and reply-to address per newsletter, which will be used instead of the default. Configure these addresses via Settings → Newsletters.
+The table below shows which email is used based on email type. In the table, if an address is not, it falls back to the next available address until reaching the default.
+Email typeAddress usedExamples
+Member notificationsSupport, DefaultSignup/sign links, comment replies
+NewslettersNewsletter, DefaultConfigurable per newsletter
+Staff notificationsDefaultRecommendations, signups
+
+Irrespective of how you configure email addresses, maximize deliverability by ensuring DKIM, SPF, and DMARC records are configured for your sending domains.
+​
+
+Admin URL
+
+Admin can be used to specify a different protocol for your admin panel or a different hostname (domain name). It can’t affect the path at which the admin panel is served (this is always /ghost/).
+
+"admin": {
+"url": "http://example.com"
+}
+
+​
+
+Server
+
+The server host and port are the IP address and port number that Ghost listens on for requests. By default, requests are routed from port 80 to Ghost by nginx (recommended), or Apache.
+
+"server": {
+"host": "127.0.0.1",
+"port": 2368
+}
+
+​
+
+Privacy
+
+All features inside the privacy.md file are enabled by default. It is possible to turn these off in order to protect privacy:
+
+Update check
+
+Gravatar
+
+Structured data
+
+For more information about the features, read the privacy.md page.
+To turn off all of the features, use:
+
+"privacy": {
+"useTinfoil": true
+}
+
+Alternatively, configure each feature individually:
+
+"privacy": {
+"useUpdateCheck": false,
+"useGravatar": false,
+"useStructuredData": false
+}
+
+​
+
+Security
+
+By default Ghost will email an auth code when it detects a login from a new device. To disable this feature, use:
+
+"security": {
+"staffDeviceVerification": false
+}
+
+Note: if you want to force 2FA for all staff logins, not just new devices, you can do so under the Settings > Staff in the admin panel
+​
+
+Paths
+
+The configuration of paths can be relative or absolute. To use a content directory that does not live inside the Ghost folder, specify a paths object with a new contentPath:
+
+"paths": {
+"contentPath": "content/"
+},
+
+When using a custom content path, the content directory must exist and contain subdirectories for data, images, themes, logs, and adapters.
+
+If using a SQLite database, you’ll also need to update the path to your database to match the new location of the data folder.
+
+​
+
+Referrer Policy
+
+Set the value of the content attribute of the meta referrer HTML tag by adding referrerPolicy to your config. origin-when-crossorigin is the default. Read through all possible options.
+​
+
+Adapters
+
+Ghost allows for customizations at multiple layers through an adapter system. Customizable layers include: storage, caching, sso, and scheduling.
+Use the adapters configuration block with “storage”, “caching”, “sso,” or “scheduling” keys to initialize a custom adapter. For example, the following configuration uses storage-module-name to handle all storage capabilities in Ghost. Note that the active key indicates a default adapter used for all features if no other adapters are declared.
+
+"adapters": {
+"storage": {
+"active": "storage-module-name",
+"storage-module-name": {
+"key": "value"
+}
+}
+}
+
+Customize parts of Ghost’s features by declaring adapters at the feature level. For example, to use a custom cache adapter only for the imageSizes feature, configure the cache adapter as follows:
+
+"adapters": {
+"cache": {
+"custom-redis-cache-adapter": {
+"host": "localhost",
+"port": 6379,
+"password": "secret_password"
+},
+"imageSizes": {
+"adapter": "custom-redis-cache-adapter",
+"ttl": 3600
+}
+}
+}
+
+The above declaration uses the custom-redis-cache-adapter only for the imageSizes cache feature with these values:
+
+{
+"host": "localhost",
+"port": 6379,
+"password": "secret_password",
+"ttl": 3600
+}
+
+​
+
+Storage adapters
+
+The storage layer is used to store images uploaded from the Ghost Admin UI, API, or when images are included in a zip file uploaded via the importer. Using a custom storage module allows you to change where images are stored without changing Ghost core.
+By default, Ghost stores uploaded images in the file system. The default location is the Ghost content path in your Ghost folder under content/images or an alternative custom content path that’s been configured.
+To use a custom storage adapter, your custom configuration file needs to be updated to provide configuration for your new storage module and set it as active:
+
+"storage": {
+"active": "my-module",
+"my-module": {
+"key": "abcdef"
+}
+}
+
+The storage block should have 2 items:
+
+An active key, which contains the name* of your module
+
+A key that reflects the name* of your module, containing any config your module needs
+
+​
+
+Available storage features
+
+images - storage of image files uploaded through POST '/images/upload' endpoint
+
+media - storage of media files uploaded through POST '/media/upload' and POST/media/thumbnail/upload endpoints
+
+files - storage of generic files uploaded through POST '/files/upload' endpoint
+
+​
+
+Available custom storage adapters
+
+local-file-store (default) saves images to the local filesystem
+
+http-store passes image requests through to an HTTP endpoint
+
+s3-store saves to Amazon S3 and proxies requests to S3
+
+s3-store saves to Amazon S3 and works with 0.10+
+
+qn-store saves to Qiniu
+
+ghost-cloudinary-store saves to Cloudinary
+
+ghost-storage-cloudinary saves to Cloudinary with RetinaJS support
+
+upyun-ghost-store saves to Upyun
+
+ghost-upyun-store saves to Upyun
+
+ghost-google-drive saves to Google Drive
+
+ghost-azure-storage saves to Azure Storage
+
+ghost-imgur saves to Imgur
+
+google-cloud-storage saves to Google Cloud Storage
+
+ghost-oss-store saves to Aliyun OSS
+
+ghost-b2 saves to Backblaze B2
+
+ghost-github saves to GitHub
+
+pages-store saves to GitHub Pages or other pages service, e.g. Coding Pages
+
+WebDAV Storage saves to a WebDAV server.
+
+ghost-qcloud-cos saves to Tencent Cloud COS.
+
+ghost-bunny-cdn-storage saves to BunnyCDN.
+
+​
+
+Creating a custom storage adapter
+
+To replace the storage module with a custom solution, use the requirements detailed below. You can also take a look at our default local storage implementation.
+Location
+
+Create a new folder named storage inside content/adapters
+
+Inside of content/adapters/storage, create a file or a folder: content/adapters/storage/my-module.js or content/adapters/storage/my-module — if using a folder, create a file called index.js inside it.
+
+Base adapter class inheritance
+A custom storage adapter must inherit from the base storage adapter. By default, the base storage adapter is installed by Ghost and available in your custom adapter.
+
+const BaseAdapter = require('ghost-storage-base');
+
+class
+... [truncated at 20 000 chars]

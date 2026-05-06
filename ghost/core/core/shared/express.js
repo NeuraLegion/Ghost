@@ -19,6 +19,15 @@ module.exports = (name) => {
     // (X-Forwarded-Proto header will be checked, if present)
     app.enable('trust proxy');
 
+    // Reject OPTIONS at the application boundary to avoid disclosing allowed methods.
+    app.use((req, res, next) => {
+        if (req.method === 'OPTIONS') {
+            return res.sendStatus(405);
+        }
+
+        next();
+    });
+
     // Sentry must be our first error handler. Mounting it here means all custom error handlers will come after
     app.use(sentry.errorHandler);
 
