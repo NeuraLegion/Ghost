@@ -1,0 +1,690 @@
+=== ghost-app-1 ===
+[2026-05-06 12:07:25] [36mINFO[39m Ghost is running in production...
+[2026-05-06 12:07:25] [36mINFO[39m Your site is now available on http://localhost:2368/
+[2026-05-06 12:07:25] [36mINFO[39m Ctrl+C to shut down
+[2026-05-06 12:07:25] [36mINFO[39m Ghost server started in 0.255s
+[2026-05-06 12:07:26] [31mERROR[39m connect ECONNREFUSED 172.18.0.3:3306
+[31m
+[31mconnect ECONNREFUSED 172.18.0.3:3306[39m
+
+[33m"Unknown database error"[39m
+
+[1m[37mError ID:[39m[22m
+    [90m500[39m
+
+[1m[37mError Code: [39m[22m
+    [90mECONNREFUSED[39m
+
+[90m----------------------------------------[39m
+
+[90mError: connect ECONNREFUSED 172.18.0.3:3306
+    at /home/ghost/node_modules/.pnpm/knex-migrator@5.3.2/node_modules/knex-migrator/lib/database.js:57:19
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)[39m
+[39m
+[2026-05-06 12:07:26] [35mWARN[39m Ghost is shutting down
+[2026-05-06 12:07:26] [35mWARN[39m Ghost has shut down
+[2026-05-06 12:07:26] [35mWARN[39m Your site is now offline
+[2026-05-06 12:07:26] [35mWARN[39m Ghost was running for a few seconds
+[2026-05-06 12:07:26] [36mINFO[39m Ghost is running in production...
+[2026-05-06 12:07:26] [36mINFO[39m Your site is now available on http://localhost:2368/
+[2026-05-06 12:07:26] [36mINFO[39m Ctrl+C to shut down
+[2026-05-06 12:07:26] [36mINFO[39m Ghost server started in 0.254s
+[2026-05-06 12:07:26] [35mWARN[39m Database state requires initialisation.
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: newsletters
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: posts
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: posts_meta
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: users
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: posts_authors
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: roles
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: roles_users
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: permissions
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: permissions_users
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: permissions_roles
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: settings
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: tags
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: posts_tags
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: invites
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: brute
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: sessions
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: integrations
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: webhooks
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: api_keys
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: mobiledoc_revisions
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: post_revisions
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: members
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: products
+[2026-05-06 12:07:27] [36mINFO[39m Creating table: offers
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: benefits
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: products_benefits
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_products
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: posts_products
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_created_events
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_cancel_events
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_payment_events
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_login_events
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_email_change_events
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_status_events
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_product_events
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_paid_subscription_events
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: labels
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_labels
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_stripe_customers
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: subscriptions
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_stripe_customers_subscriptions
+[2026-05-06 12:07:28] [36mINFO[39m Creating table: members_subscription_created_events
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: offer_redemptions
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: members_subscribe_events
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: donation_payment_events
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: stripe_products
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: stripe_prices
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: actions
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: emails
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: email_batches
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: email_recipients
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: email_recipient_failures
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: tokens
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: snippets
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: custom_theme_settings
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: members_newsletters
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: comments
+[2026-05-06 12:07:29] [36mINFO[39m Creating table: comment_likes
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: comment_reports
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: jobs
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: redirects
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: members_click_events
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: members_feedback
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: suppressions
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: email_spam_complaint_events
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: mentions
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: milestones
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: collections
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: collections_posts
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: recommendations
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: recommendation_click_events
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: recommendation_subscribe_events
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: outbox
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: email_design_settings
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: welcome_email_automations
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: welcome_email_automated_emails
+[2026-05-06 12:07:30] [36mINFO[39m Creating table: welcome_email_automation_runs
+[2026-05-06 12:07:31] [36mINFO[39m Creating table: automated_email_recipients
+[2026-05-06 12:07:31] [36mINFO[39m Creating table: gifts
+[2026-05-06 12:07:31] [36mINFO[39m Model: Collection
+[2026-05-06 12:07:31] [36mINFO[39m Model: Product
+[2026-05-06 12:07:31] [36mINFO[39m Model: Newsletter
+[2026-05-06 12:07:31] [36mINFO[39m Model: EmailDesignSetting
+[2026-05-06 12:07:31] [36mINFO[39m Model: Tag
+[2026-05-06 12:07:31] [36mINFO[39m Model: Permission
+[2026-05-06 12:07:32] [36mINFO[39m Model: Post
+[2026-05-06 12:07:32] [36mINFO[39m Model: Integration
+[2026-05-06 12:07:32] [36mINFO[39m Relation: Role to Permission
+[2026-05-06 12:07:32] [36mINFO[39m Relation: Post to Tag
+[2026-05-06 12:07:32] [36mINFO[39m Database is in a ready state.
+[2026-05-06 12:07:32] [36mINFO[39m Ghost database ready in 6.156s
+[2026-05-06 12:07:32] [36mINFO[39m Configured site_uuid was not found or invalid. Setting site_uuid to a new value: 6db54fd3-5eda-4da6-83c8-8b26bca5b6f9
+[2026-05-06 12:07:32] [35mWARN[39m Missing mail.from config, falling back to a generated email address. Please update your config file and set a valid from address
+[2026-05-06 12:07:33] [31mERROR[39m Failed theme files check
+[31m
+[31mFailed theme files check[39m
+
+[33m"Your theme file structure is corrupted or contains errors"[39m
+
+[1m[37mError ID:[39m[22m
+    [90m29b00000-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[1m[37mDetails:[39m[22m
+[90m    Cannot read properties of undefined (reading 'major')[39m
+
+[90m----------------------------------------[39m
+
+[90mTypeError: Cannot read properties of undefined (reading 'major')
+    at Object.checkAll [as check] (/home/ghost/node_modules/.pnpm/gscan@5.4.3/node_modules/gscan/lib/checker.js:78:15)
+    at Object.checkAll [as check] (/home/ghost/node_modules/.pnpm/gscan@5.4.3/node_modules/gscan/lib/checker.js:64:50)
+    at async Object.check (/home/ghost/ghost/core/core/server/services/themes/validate.js:65:24)
+    at async module.exports.loadAndActivate (/home/ghost/ghost/core/core/server/services/themes/activate.js:24:30)
+    at async initServicesForFrontend (/home/ghost/ghost/core/core/boot.js:202:5)
+    at async bootGhost (/home/ghost/ghost/core/core/boot.js:567:31)[39m
+[39m
+[2026-05-06 12:07:33] [36mINFO[39m [EmailAnalytics] Initialized with SEQUENTIAL processing mode
+[2026-05-06 12:07:33] [36mINFO[39m Pinging Explore with Payload https://explore.ghost.org/api/update {"ghost":"0.0.0-private","site_uuid":"6db54fd3-5eda-4da6-83c8-8b26bca5b6f9","url":"http://localhost:2368","theme":"source","facebook":"ghost","twitter":"@ghost","posts_total":2,"posts_last":"2026-05-06T12:07:33.000Z","posts_first":"2026-05-06T12:07:32.000Z"}
+[2026-05-06 12:07:33] [36mINFO[39m Adding one-off job to inlineQueue with current length = 0 called 'members-migrations'
+[2026-05-06 12:07:33] [36mINFO[39m Stripe not configured - skipping migrations
+[2026-05-06 12:07:34] [36mINFO[39m Explore Response 200 OK
+[2026-05-06 12:07:34] [36mINFO[39m URL Service ready in 1067ms
+[2026-05-06 12:07:34] [36mINFO[39m Adding offloaded job to the inline job queue
+[2026-05-06 12:07:34] [36mINFO[39m Scheduling job clean-expired-comped at 36 29 2 * * *. Next run on: Thu May 07 2026 02:29:36 GMT+0000 (Coordinated Universal Time)
+[2026-05-06 12:07:34] [36mINFO[39m Adding offloaded job to the inline job queue
+[2026-05-06 12:07:34] [36mINFO[39m Scheduling job clean-tokens at 1 7 16 * * *. Next run on: Wed May 06 2026 16:07:01 GMT+0000 (Coordinated Universal Time)
+[2026-05-06 12:07:34] [36mINFO[39m Ghost booted in 7.803s
+[2026-05-06 12:07:34] [36mINFO[39m Adding offloaded job to the inline job queue
+[2026-05-06 12:07:34] [36mINFO[39m Scheduling job update-check at 47 47 20 * * *. Next run on: Wed May 06 2026 20:47:47 GMT+0000 (Coordinated Universal Time)
+[2026-05-06 12:07:34] [36mINFO[39m Adding offloaded job to the inline job queue
+[2026-05-06 12:07:34] [36mINFO[39m Scheduling job process-outbox at 31 4/5 * * * *. Next run on: Wed May 06 2026 12:09:31 GMT+0000 (Coordinated Universal Time)
+[2026-05-06 12:07:34] [36mINFO[39m Running milestone emails job on Wed May 06 2026 12:07:34 GMT+0000 (Coordinated Universal Time)
+[2026-05-06 12:07:36] [31mERROR[39m "GET /" [31m500[39m 12ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m2bcac9b1-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:07:41] [31mERROR[39m "GET /" [31m500[39m 3ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m2ed857d1-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:07:46] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m31e26381-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:07:51] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m34ef5561-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:07:57] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m37f82891-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:02] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m3b003871-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:07] [31mERROR[39m "GET /" [31m500[39m 3ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m3e06c1b1-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:12] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m410e0e41-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:17] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m44161e21-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:18] [36mINFO[39m Updating incoming recommendations on boot
+[2026-05-06 12:08:22] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m471eca41-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:27] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m4a25c8b1-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:32] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m4d2db181-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:37] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m50374801-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:42] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m533f57e1-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:47] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m5646f291-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:53] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m594e1811-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:08:58] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m5c551681-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:09:03] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m5f5d7481-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:09:08] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m62655d51-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:09:13] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m656c5bc1-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:09:18] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m6875f241-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:09:23] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m6b7ec571-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:09:28] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m6e888301-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:09:31] [36mINFO[39m Worker for job "process-outbox" online
+[2026-05-06 12:09:31] [36mINFO[39m Worker for job process-outbox sent a message: done
+[2026-05-06 12:09:31] [35mWARN[39m Missing mail.from config, falling back to a generated email address. Please update your config file and set a valid from address
+[2026-05-06 12:09:31] [35mWARN[39m Missing mail.from config, falling back to a generated email address. Please update your config file and set a valid from address
+[2026-05-06 12:09:31] [36mINFO[39m [OUTBOX] No pending outbox entries to process
+[2026-05-06 12:09:58] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m8078a4f1-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:10:28] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90m92676751-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:10:58] [31mERROR[39m "GET /" [31m500[39m 1ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90ma456ed01-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+[2026-05-06 12:11:28] [31mERROR[39m "GET /" [31m500[39m 2ms
+[31m
+[31mThe currently active theme "source" is missing.[39m
+
+[1m[37mError ID:[39m[22m
+    [90mb645fd81-4944-11f1-bd23-c5d0dde3ff92[39m
+
+[90m----------------------------------------[39m
+
+[90mInternalServerError: The currently active theme "source" is missing.
+    at ensureActiveTheme (/home/ghost/ghost/core/core/frontend/services/theme-engine/middleware/ensure-active-theme.js:19:21)
+    at Layer.handle [as handle_request] (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:328:13)
+    at /home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/ghost/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)
+    at loadMemberSession (/home/ghost/ghost/core/core/server/services/members/middleware.js:97:9)[39m
+[39m
+
+=== ghost-mailpit-1 ===
+time="2026/05/06 12:07:19" level=info msg="[smtpd] starting on [::]:1025 (no encryption)"
+time="2026/05/06 12:07:19" level=info msg="[cors] allowed API origins: "
+time="2026/05/06 12:07:19" level=info msg="[http] starting on [::]:8025"
+time="2026/05/06 12:07:19" level=info msg="[http] accessible via http://localhost:8025/"
+
+=== ghost-mysql-1 ===
+2026-05-06 12:07:19+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.5-1.el9 started.
+2026-05-06 12:07:20+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-05-06 12:07:20+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.5-1.el9 started.
+2026-05-06 12:07:20+00:00 [Note] [Entrypoint]: Initializing database files
+2026-05-06 12:07:23+00:00 [Note] [Entrypoint]: Database files initialized
+2026-05-06 12:07:23+00:00 [Note] [Entrypoint]: Starting temporary server
+2026-05-06 12:07:23+00:00 [Note] [Entrypoint]: Temporary server started.
+'/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+2026-05-06 12:07:25+00:00 [Note] [Entrypoint]: Creating database ghost_dev
+2026-05-06 12:07:25+00:00 [Note] [Entrypoint]: Creating user ghost
+2026-05-06 12:07:25+00:00 [Note] [Entrypoint]: Giving user ghost access to schema ghost_dev
+
+2026-05-06 12:07:25+00:00 [Note] [Entrypoint]: Stopping temporary server
+2026-05-06 12:07:26+00:00 [Note] [Entrypoint]: Temporary server stopped
+
+2026-05-06 12:07:26+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+
+=== ghost-redis-1 ===
+1:C 06 May 2026 12:07:19.914 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 06 May 2026 12:07:19.914 # Redis version=7.0.15, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 06 May 2026 12:07:19.914 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+1:M 06 May 2026 12:07:19.914 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+1:M 06 May 2026 12:07:19.914 * monotonic clock: POSIX clock_gettime
+1:M 06 May 2026 12:07:19.915 * Running mode=standalone, port=6379.
+1:M 06 May 2026 12:07:19.915 # Server initialized
+1:M 06 May 2026 12:07:19.915 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:M 06 May 2026 12:07:19.915 * Ready to accept connections
