@@ -1,0 +1,67 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    ports:
+      - "2368:2368"
+    environment:
+      NODE_ENV: production
+      GHOST_BUILD_VERSION: container
+      url: http://localhost:2368
+      database__client: mysql2
+      database__connection__host: db
+      database__connection__user: ghost
+      database__connection__password: ghost
+      database__connection__database: ghost
+      server__host: 0.0.0.0
+      server__port: "2368"
+      mail__transport: SMTP
+      mail__options__host: mailpit
+      mail__options__port: "1025"
+    depends_on:
+      db:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+    stdin_open: true
+    tty: true
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:2368/ghost/api/admin/site/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    volumes:
+      - ghost-content:/home/ghost/ghost/core/content
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ghost
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$$MYSQL_USER -p$$MYSQL_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: on-failure
+
+  mailpit:
+    image: axllent/mailpit:v1.22
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    restart: on-failure
+
+volumes:
+  db-data:
+  ghost-content:
