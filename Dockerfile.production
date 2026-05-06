@@ -9,7 +9,7 @@ ENV NODE_ENV=production \
     GHOST_BUILD_VERSION=${GHOST_BUILD_VERSION} \
     PNPM_HOME=/pnpm \
     PATH=/pnpm:$PATH \
-    LD_PRELOAD=libjemalloc.so.2
+    LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 WORKDIR /home/ghost
 
