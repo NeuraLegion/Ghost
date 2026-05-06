@@ -1,0 +1,101 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    ports:
+      - "2368:2368"
+    environment:
+      NODE_ENV: production
+      GHOST_BUILD_VERSION: ""
+      server__host: "0.0.0.0"
+      server__port: "2368"
+      database__client: mysql2
+      database__connection__host: mysql
+      database__connection__user: ghost
+      database__connection__password: ghost
+      database__connection__database: ghost_dev
+      mail__transport: SMTP
+      mail__options__host: mailpit
+      mail__options__port: "1025"
+      adapters__cache__Redis__host: redis
+      adapters__cache__Redis__port: "6379"
+      active_theme: source
+      portal__security__disabled: "true"
+      members__enableSignup: "false"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailpit:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:2368/ghost/api/admin/site/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  mysql:
+    image: mysql:8.4.5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ghost_dev
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ghost
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.0
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "1025:1025"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8025/api/v1/info >/dev/null 2>&1 || nc -z localhost 1025"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  stripe:
+    image: stripe/stripe-cli
+    profiles:
+      - stripe
+    environment:
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+    depends_on:
+      app:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  redis-data:

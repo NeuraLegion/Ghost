@@ -74,6 +74,12 @@ const check = async function check(themeName, theme, options = {}) {
         checkVersion: checkedVersion
     });
 
+    // gscan format results can omit explicit error/warning arrays and only expose pass/fail maps.
+    // Normalize the shape so later consumers don't assume missing arrays imply a broken result object.
+    checkedTheme.results = checkedTheme.results || {};
+    checkedTheme.results.error = checkedTheme.results.error || [];
+    checkedTheme.results.warning = checkedTheme.results.warning || [];
+
     // In production we don't want to show warnings
     // Warnings are meant for developers only
     if (config.get('env') === 'production') {
