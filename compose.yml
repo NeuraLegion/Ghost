@@ -1,0 +1,104 @@
+services:
+  ghost-dev:
+    build:
+      context: .
+      dockerfile: docker/ghost-dev/Dockerfile
+    working_dir: /home/ghost/ghost/core
+    entrypoint: ["/bin/bash", "-lc"]
+    command:
+      - >-
+        cd /home/ghost/ghost &&
+        pnpm install --frozen-lockfile --prefer-offline &&
+        pnpm --filter @tryghost/parse-email-address build &&
+        pnpm install --dir /home/ghost/ghost/admin --frozen-lockfile --prefer-offline &&
+        cd /home/ghost/ghost/core &&
+        cd /home/ghost/ghost/admin && pnpm dev >/tmp/ghost-admin-dev.log 2>&1 &
+        cd /home/ghost/ghost/core &&
+        exec /home/ghost/entrypoint.sh node index.js
+    ports:
+      - "2368:2368"
+    volumes:
+      - ./ghost:/home/ghost/ghost
+      - ./apps:/home/ghost/apps
+      - ghost-dev-data:/home/ghost/ghost/core/content/data
+      - ghost-dev-images:/home/ghost/ghost/core/content/images
+      - ghost-dev-media:/home/ghost/ghost/core/content/media
+      - ghost-dev-files:/home/ghost/ghost/core/content/files
+      - ghost-dev-logs:/home/ghost/ghost/core/content/logs
+      - shared-config:/mnt/shared-config:ro
+    environment:
+      NODE_ENV: development
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
+      database__client: mysql2
+      database__connection__host: mysql
+      database__connection__user: root
+      database__connection__password: root
+      database__connection__database: ghost_dev
+      server__host: 0.0.0.0
+      server__port: "2368"
+      mail__transport: SMTP
+      mail__options__host: mailpit
+      mail__options__port: "1025"
+      adapters__cache__Redis__host: redis
+      adapters__cache__Redis__port: "6379"
+    stdin_open: true
+    tty: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailpit:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.4.5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ghost_dev
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ghost
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysql", "-h", "127.0.0.1", "-uroot", "-proot", "-e", "SELECT 1"]
+      interval: 1s
+      retries: 120
+      timeout: 5s
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 1s
+      retries: 120
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    volumes:
+      - mailpit-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8025"]
+      interval: 1s
+      retries: 30
+
+volumes:
+  mysql-data:
+  redis-data:
+  mailpit-data:
+  shared-config:
+  ghost-dev-data:
+  ghost-dev-images:
+  ghost-dev-media:
+  ghost-dev-files:
+  ghost-dev-logs:

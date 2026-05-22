@@ -22,6 +22,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 COPY ghost/core/package.json ghost/core/package.json
 COPY ghost/i18n/package.json ghost/i18n/package.json
 COPY ghost/parse-email-address/package.json ghost/parse-email-address/package.json
+COPY ghost/admin/package.json ghost/admin/package.json
 
 # Install dependencies
 # Note: Dependencies are installed at build time, but source code is mounted at runtime.
@@ -29,6 +30,12 @@ COPY ghost/parse-email-address/package.json ghost/parse-email-address/package.js
 # Copy root lifecycle scripts/hooks needed by `pnpm install`
 COPY .github/scripts .github/scripts
 COPY .github/hooks .github/hooks
+
+# Copy workspace package sources that are symlinked into node_modules and required at runtime.
+# Without these, pnpm creates links to paths that exist during install but are missing after the
+# host source tree is bind-mounted, causing runtime MODULE_NOT_FOUND errors for built workspace packages.
+COPY ghost/i18n ghost/i18n
+COPY ghost/parse-email-address ghost/parse-email-address
 
 # Enable corepack so it can read packageManager from package.json and provide pnpm
 RUN corepack enable
