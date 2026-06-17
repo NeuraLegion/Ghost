@@ -58,10 +58,14 @@ services:
       dockerfile: docker/ghost-dev/Dockerfile
     container_name: ghost-dev
     working_dir: /home/ghost/ghost/core
-    command: ["pnpm", "dev"]
+    command:
+      - sh
+      - -lc
+      - cd /home/ghost && pnpm install --frozen-lockfile --prefer-offline && pnpm --filter @tryghost/parse-email-address build && pnpm --dir /home/ghost/ghost/core run build:tsc && exec pnpm --dir /home/ghost/ghost/core run dev -- index.js
     volumes:
       - ./ghost:/home/ghost/ghost
       # Mount specific content subdirectories to preserve themes/adapters from source
+      - ghost-dev-node-modules:/home/ghost/node_modules
       - ghost-dev-data:/home/ghost/ghost/core/content/data
       - ghost-dev-images:/home/ghost/ghost/core/content/images
       - ghost-dev-media:/home/ghost/ghost/core/content/media
@@ -82,6 +86,8 @@ services:
       mail__transport: SMTP
       mail__options__host: mailpit
       mail__options__port: 1025
+      theme__active: casper
+      defaultTheme: casper
       # Redis cache (optional)
       adapters__cache__Redis__host: redis
       adapters__cache__Redis__port: 6379
@@ -96,7 +102,7 @@ services:
         condition: service_healthy
         required: false
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://localhost:2368',{redirect:'manual'}).then(r=>process.exit(r.status<500?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://localhost:2368/ghost/api/admin/site/',{headers:{Accept:'application/json'},redirect:'manual'}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       timeout: 5s
       retries: 10
       start_period: 5s
@@ -118,7 +124,7 @@ services:
       - ./docker/dev-gateway/Caddyfile:/etc/caddy/Caddyfile:ro
     depends_on:
       ghost-dev:
-        condition: service_healthy
+        condition: service_started
 
   stripe:
     image: stripe/stripe-cli:latest@sha256:aa500a8812f08613296e322ce2dfccd02459273432fcc2e3a0b4f68919fce438
@@ -140,6 +146,7 @@ volumes:
   mysql-data:
   redis-data:
   shared-config:
+  ghost-dev-node-modules:
   ghost-dev-data:
   ghost-dev-images:
   ghost-dev-media:
