@@ -148,8 +148,8 @@ catalogs:
       specifier: 8.5.6
       version: 8.5.6
     react-router:
-      specifier: 7.14.0
-      version: 7.14.0
+      specifier: 8.3.0
+      version: 8.3.0
     sinon:
       specifier: 21.1.1
       version: 21.1.1
@@ -331,7 +331,7 @@ importers:
         version: 7.72.1(react@18.3.1)
       react-router:
         specifier: 'catalog:'
-        version: 7.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 8.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       sonner:
         specifier: 'catalog:'
         version: 2.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -706,7 +706,7 @@ importers:
         version: 2.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router:
         specifier: 'catalog:'
-        version: 7.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 8.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@playwright/test':
         specifier: 'catalog:'
@@ -1188,7 +1188,7 @@ importers:
         version: 18.3.1(react@18.3.1)
       react-router:
         specifier: 'catalog:'
-        version: 7.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 8.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       sonner:
         specifier: 'catalog:'
         version: 2.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -8418,6 +8418,7 @@ packages:
 
   '@tryghost/admin-api-schema@4.7.4':
     resolution: {integrity: sha512-vSVVBTUOKLdsTwUkEXPyhi8yo/GC9EpStVbTk9YN1iC0cGDloFDQ3Kb3aXScLhxcLCMa8TOGBDS+o/kXON0b4A==}
+    deprecated: This package is now maintained as an internal Ghost workspace package. Existing versions remain available for older Ghost releases; direct use is unsupported.
 
   '@tryghost/api-framework@1.0.7':
     resolution: {integrity: sha512-V+C/nVE4sgPQ3Vdm0jBAd05Za02inv68ZeO5rE2zYHUGp/PL5MfOPdhynTeFzzHNrmD9vzs+675C5zo/nLJY7w==}
@@ -8511,6 +8512,7 @@ packages:
 
   '@tryghost/html-to-mobiledoc@3.3.1':
     resolution: {integrity: sha512-VH9JVk/2Mt+FTjNUQYT4zbO3XkDGNiuBFuF+f2HYFB050c12FftTPtCF578Lj+zUm+slZLljaJMW+czl7aH/7g==}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. Use @tryghost/kg-html-to-lexical instead.'
 
   '@tryghost/html-to-plaintext@1.0.10':
     resolution: {integrity: sha512-kMg2knP6r8NP980WkXq13CV1fUc7bnLoMJRprXHEIcpiuHh2wcT74qJvP76tnofJ7EP7G5gRga4aZ3WCG2i0jg==}
@@ -8544,6 +8546,7 @@ packages:
   '@tryghost/kg-default-atoms@5.2.1':
     resolution: {integrity: sha512-NEF489Y4Q9y4jGL+4x017T9O6hwp2CAIb9bRVejtegilA6VhMSSO9uzhEIkmoso1RH7vahub0mocMtOrv7bHjQ==}
     engines: {node: ^22.13.1 || ^24.0.0}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. This package is unmaintained.'
 
   '@tryghost/kg-default-cards@10.3.1':
     resolution: {integrity: sha512-L6nbmpP9/DmocJRIqHmSd00nV+knem+0I6SlEaPlXjvpGlesVMX+fsDP0I67CkKBBelvmlkvK4MzT2zJp5e9nQ==}
@@ -8569,10 +8572,12 @@ packages:
   '@tryghost/kg-mobiledoc-html-renderer@7.2.1':
     resolution: {integrity: sha512-7qTnIWCzBZEEjZQpGKlCaJ9kbYrhnmG6/ttlOtFHUrhbfoIYts1uiVRXiP0VB3xELIPuu34aFdslpX2ANIzhCQ==}
     engines: {node: ^22.13.1 || ^24.0.0}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. This package is unmaintained.'
 
   '@tryghost/kg-parser-plugins@4.3.1':
     resolution: {integrity: sha512-E8M+jlPmuU9OHa1SWtU5Pc+zP5dbZetXrNVuxlzlBdysAUh9MPfz1C9bxaZ7um7TuqNechl6t2WSUJezueYN2g==}
     engines: {node: ^22.13.1}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. This package is unmaintained.'
 
   '@tryghost/kg-unsplash-selector@0.4.1':
     resolution: {integrity: sha512-9W2cuTBr3xo5SsCPC3ujxWrLj1q23xmLRLIaWgxYyyPTCXj2XP3Bu1aOOd9u6y2hkS3TdUt6ma3LPTi8K/IHEg==}
@@ -8594,12 +8599,14 @@ packages:
 
   '@tryghost/members-csv@2.0.7':
     resolution: {integrity: sha512-RnpaY2jKXC2waJTH4tI34vW541YBoDu7rX3NPZeHIdzoRP1102NCrzhPrFB/edmcyJ9fMMj5XpcvoQWw7FR/5A==}
+    deprecated: This package is now maintained as an internal Ghost workspace package. Existing versions remain available for older Ghost releases; direct use is unsupported.
 
   '@tryghost/metrics@1.0.43':
     resolution: {integrity: sha512-zTpO/VWhhsDgT/NPeXTa2UNO6KRoMVroo5oHpvKCB29eSE2td6uSarxZCzoxZ9c6rgA2TW0tiGuNu7sB3bMY7g==}
 
   '@tryghost/mobiledoc-kit@0.12.4-ghost.1':
     resolution: {integrity: sha512-c4aheSWH2Y7x4uSkAx08gbtvuEgPGjlu6v+FeUdSJZ1blEd+knL3zTcUAfeSiM6rgLEHxlNWtt+KFwotdf6rTA==}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. See bustle/mobiledoc-kit for the upstream project.'
 
   '@tryghost/mongo-knex@0.9.4':
     resolution: {integrity: sha512-R5mqpuQ1nN4qWAii9Tvg5POZ0nLO7Voy7QaQF+95sseUpfe4XEUsr3+mm4HYPC8MNKginlUm/unLf5QFzFQl5w==}
@@ -11801,6 +11808,9 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  cookie-es@3.1.1:
+    resolution: {integrity: sha512-UaXxwISYJPTr9hwQxMFYZ7kNhSXboMXP+Z3TRX6f1/NyaGPfuNUZOWP1pUEb75B2HjfklIYLVRfWiFZJyC6Npg==}
 
   cookie-session@2.1.1:
     resolution: {integrity: sha512-ji3kym/XZaFVew1+tIZk5ZLp9Z/fLv9rK1aZmpug0FsgE7Cu3ZDrUdRo7FT9vFjMYfNimrrUHJzywDwT7XEFlg==}
@@ -19116,12 +19126,12 @@ packages:
       '@types/react':
         optional: true
 
-  react-router@7.14.0:
-    resolution: {integrity: sha512-m/xR9N4LQLmAS0ZhkY2nkPA1N7gQ5TUVa5n8TgANuDTARbn1gt+zLPXEm7W0XDTbrQ2AJSJKhoa6yx1D8BcpxQ==}
-    engines: {node: '>=20.0.0'}
+  react-router@8.3.0:
+    resolution: {integrity: sha512-qyPMvW83jGIct3yiieisxdk9M745anqhpIMKN5m1t6yBMfgVPpt77aHOqs5fUlEJRMCGffg9BaQLH9oPVOL7xQ==}
+    engines: {node: '>=22.22.0'}
     peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
+      react: '>=19.2.7'
+      react-dom: '>=19.2.7'
     peerDependenciesMeta:
       react-dom:
         optional: true
@@ -19243,6 +19253,7 @@ packages:
   recharts@2.15.4:
     resolution: {integrity: sha512-UT/q6fwS3c1dHbXv2uFgYJ9BMFHu3fwnd7AYZaEQhXuYQ4hgsxLvsUXzGdKeZrW5xopzDCvuA2N41WJ88I7zIw==}
     engines: {node: '>=14'}
+    deprecated: 1.x and 2.x branches are no longer active. Bump to Recharts v3 to receive latest features and bugfixes. See https://github.com/recharts/recharts/wiki/3.0-migration-guide
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -19772,9 +19783,6 @@ packages:
 
   set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
-
-  set-cookie-parser@2.7.2:
-    resolution: {integrity: sha512-oeM1lpU/UvhTxw+g3cIfxXHyJRc/uidd3yK1P242gzHds0udQBYzs3y8j4gCCW+ZJ7ad0yctld8RYO+bdurlvw==}
 
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
@@ -20829,6 +20837,7 @@ packages:
   tsconfck@3.1.6:
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
     engines: {node: ^18 || >=20}
+    deprecated: unmaintained
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
@@ -33461,6 +33470,8 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
+  cookie-es@3.1.1: {}
+
   cookie-session@2.1.1:
     dependencies:
       cookies: 0.9.1
@@ -43654,11 +43665,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.28
 
-  react-router@7.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-router@8.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      cookie: 1.1.1
+      cookie-es: 3.1.1
       react: 18.3.1
-      set-cookie-parser: 2.7.2
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
 
@@ -44530,8 +44540,6 @@ snapshots:
       - supports-color
 
   set-blocking@2.0.0: {}
-
-  set-cookie-parser@2.7.2: {}
 
   set-function-length@1.2.2:
     dependencies:
